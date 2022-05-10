@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+                    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+                    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+                    crossorigin="anonymous">
+    <title>PythonWars • Login</title>
+    <style>
+        body, html{
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: #e1e1e1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wrapper{
+            width: 500px;
+            border-radius: 10px;
+            background: white;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            padding: 25px;
+        }
+
+        .log-title{
+            font-weight: 600;
+        }
+
+        .reg-form{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .reg-input{
+            border-radius: 3px;
+            border: silver 1px solid;
+            padding: 10px;
+            width: 100%;
+            margin: 5px 0 5px 0;
+        }
+
+        .reg-submit{
+            margin-top: 20px;
+            background: #3D62D7;
+            color: white;
+            border-radius: 5px;
+            width: 100%;
+            height: 50px;
+            border: #294191 solid 1px;
+        }
+
+        .error{
+            background: red;
+            border: 1px darkred solid;
+            color: white;
+            border-radius: 3px;
+            padding: 10px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <center><h4 class="log-title">Login</h4></center>
+        <hr>
+        <form class="reg-form" action="" method="post">
+            {{ form.hidden_tag() }}
+            {{ form.nickname(class="reg-input reg-mail", placeholder="Your name", type="text") }}<!--<input name="nikname" class="reg-input reg-nikname" placeholder="Nikname" type="text" required>-->
+            {{ form.password(class="reg-input reg-password", placeholder="Password", type="password") }}
+            {{ form.submit(class="reg-submit", type="submit") }}
+            <div class="error"><b>Error</b>: {{ error_msg }}</div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home_page.css') }}">
+	<script src="https://kit.fontawesome.com/8ab2e3adb7.js" crossorigin="anonymous"></script>
+	<title>Main</title>
+</head>
+<body>
+	<div class="container">
+		<div class="header__container">
+			<div class="header__user">
+				<div class="header__user_info">
+					<div class="header__user_icon">
+						<i class="fa-solid fa-user"></i>
+					</div>
+					<div class="header__user_login">{{ current_user.nickname }}</div>
+				</div>
+				<div class="header__logout">
+					<a href="/logout" class="header__logout_btn">Logout</a>
+				</div>
+			</div>
+			<div class="header__title">Python Wars</div>
+		</div>
+	</div>
+
+	<div class="container__blocks">
+		<button class="block1">
+			<a class="header__text" href="/kata_create">Create task</a>
+		</button>
+		<button class="block2">
+			<a class="header__text" href="/katas_list/all">All tasks</a>
+		</button>
+	</div>
+</body>
+</html>

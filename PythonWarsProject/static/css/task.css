@@ -1,0 +1,280 @@
+* {
+    box-sizing: border-box;
+}
+html, body{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: Arial;
+}
+body{
+    display: flex;
+}
+
+#menu{
+    background: #3D62D7;
+    width: 100px;
+    height: 100%;
+    position: fixed;
+    z-index: 999;
+}
+
+.menu__item{
+    border-bottom: 1px white solid;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 45px;
+    cursor: pointer;
+}
+
+.menu__item:hover{
+    background: #314FAF;
+}
+
+.menu__item:active{
+    background: #294191;
+    color: silver;
+}
+
+.circle_border{
+    border-radius: 50%;
+    border: 3px solid white;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main{
+    flex: 1 auto;
+}
+
+#header{
+    height: 75px;
+    display: flex;
+    border-bottom: 1px #3D62D7 solid;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    background: white;
+    padding-left: 100px;
+}
+
+.header__main{
+    flex: 1 auto;
+    padding-left: 17px;
+}
+
+.header__main h1{
+    margin: 0;
+}
+
+.header__corner{
+    width: 500px;
+    height: 100%;
+    background: #3D62D7;
+    background: linear-gradient(225deg, rgba(61,98,215,1) 80%, rgba(255,255,255,1) 80%);
+    display: flex;
+    justify-content: right;
+}
+
+.corner__content{
+    width: 280px;
+    color: white;
+    justify-content: space-between;
+    display: flex;
+    margin-right: 30px;
+    align-items: center;
+}
+
+.top_menu_item{
+    color: white;
+    font-size: 56px;
+    cursor: pointer;
+}
+
+.top_menu_item:hover{
+    color: #e0e0e0;
+}
+
+.top_menu_item:active{
+    color: #b0b0b0;
+}
+
+#right_menu{
+    width: 300px;
+    height: 400px;
+    background: #3D62D7;
+    display: none;
+}
+
+#profile_menu{
+    position: absolute;
+    right: 0;
+    top: 75px;
+    background: #3D62D7;
+    width: 300px;
+    color: white;
+    text-decoration: none;
+    display: none;
+}
+
+.profile_menu__item{
+    padding: 20px;
+    color: white;
+    text-decoration: none;
+    display: block;
+    border-top: 1px solid #95aef6;
+}
+
+.profile_menu__item:hover{
+    background: #314FAF;
+}
+
+.profile_menu__item:active{
+    background: #294191;
+    color: silver;
+}
+
+#content{
+    padding: 100px 25px 25px 125px;
+    overflow: hidden;
+    max-height: 100%;
+    height: 100%;
+}
+
+.task_container{
+    display: flex;
+    height: 100%;
+}
+
+.task_info{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.task_info__points{
+    color: red;
+    border: 3px solid red;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.task_info__main{
+    margin-bottom: 50px;
+}
+
+.task_info__desc{
+    display: flex;
+    flex-direction: column;
+    flex: 1 auto;
+}
+
+.task_editor{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.task_editor__code{
+    height: 66.66%;
+    padding: 0 0 25px 25px;
+}
+
+.task_editor__label{
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.task_editor__tests{
+    margin-top: 25px;
+    flex:1 auto;
+    padding: 0 0 25px 25px;
+}
+
+.task_editor__submit{
+    margin-top: 25px;
+    display: flex;
+    justify-content: right;
+}
+
+.task_editor__submit button{
+    width: 300px;
+    color: white;
+    background: #3D62D7;
+    height: 50px;
+    border: none;
+    font-weight: 600;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.task_editor__submit button:hover{
+    background: #3555be;
+}
+
+.task_editor__submit button:active{
+    background: #2a4498;
+}
+
+.task_info__buttons{
+    display: flex;
+}
+
+.task_info__button{
+    background: #dedede;
+    width: 150px;
+    padding: 10px;
+    border: none;
+    font-weight: 600;
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 25px;
+}
+
+.active{
+    background: #9d9d9d;
+}
+
+.show{
+    display: block !important;
+}
+
+.task_info__tab{
+    display: none;
+    border: 1px solid #e0e0e0;
+    flex: 1 0 0;
+    margin-top: 25px;
+    box-sizing: border-box;
+    padding: 10px;
+    overflow-y: scroll;
+
+}
+
+#editor{
+    height: 100%;
+}
+
+#task_name{
+    width: 100%;
+    height: 40px;
+    border: 1px solid silver;
+    font-size: 18px;
+}
+
+#task_desc{
+    width: 100%;
+    height: 90%;
+    resize: none;
+    border: 1px solid silver;
+    font-size: 18px;
+}

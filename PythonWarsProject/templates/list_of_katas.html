@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/8ab2e3adb7.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        html, body{
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            font-family: Arial;
+        }
+        body{
+            display: flex;
+        }
+
+        #menu{
+            background: #3D62D7;
+            width: 100px;
+            height: 100%;
+            position: fixed;
+            z-index: 999;
+        }
+
+        .menu__item{
+            border-bottom: 1px white solid;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 45px;
+            cursor: pointer;
+        }
+
+        .menu__item:hover{
+            background: #314FAF;
+        }
+
+        .menu__item:active{
+            background: #294191;
+            color: silver;
+        }
+
+        .circle_border{
+            border-radius: 50%;
+            border: 3px solid white;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #main{
+            flex: 1 auto;
+        }
+
+        #header{
+            height: 75px;
+            display: flex;
+            border-bottom: 1px #3D62D7 solid;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            background: white;
+            padding-left: 100px;
+        }
+
+        .header__main{
+            flex: 1 auto;
+            padding-left: 17px;
+        }
+
+        .header__main h1{
+            margin: 0;
+        }
+
+        .header__corner{
+            width: 500px;
+            height: 100%;
+            background: #3D62D7;
+            background: linear-gradient(225deg, rgba(61,98,215,1) 80%, rgba(255,255,255,1) 80%);
+            display: flex;
+            justify-content: right;
+        }
+
+        .corner__content{
+            width: 280px;
+            color: white;
+            justify-content: space-between;
+            display: flex;
+            margin-right: 30px;
+            align-items: center;
+        }
+
+        .top_menu_item{
+            color: white;
+            font-size: 56px;
+            cursor: pointer;
+        }
+
+        .top_menu_item:hover{
+            color: #e0e0e0;
+        }
+
+        .top_menu_item:active{
+            color: #b0b0b0;
+        }
+
+        #right_menu{
+            width: 300px;
+            height: 400px;
+            background: #3D62D7;
+            display: none;
+        }
+
+        #profile_menu{
+            position: absolute;
+            right: 0;
+            top: 75px;
+            background: #3D62D7;
+            width: 300px;
+            color: white;
+            text-decoration: none;
+            display: none;
+        }
+
+        .profile_menu__item{
+            padding: 20px;
+            color: white;
+            text-decoration: none;
+            display: block;
+            border-top: 1px solid #95aef6;
+        }
+
+        .profile_menu__item:hover{
+            background: #314FAF;
+        }
+
+        .profile_menu__item:active{
+            background: #294191;
+            color: silver;
+        }
+
+        #content{
+            padding: 100px 25px 25px 125px;
+            overflow-y: scroll;
+            max-height: 100%;
+        }
+
+        .task{
+            width: 100%;
+            border: 1px solid silver;
+            border-radius: 3px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .task__header{
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .task__content{
+            max-width: 80%;
+            margin-top: 10px;
+        }
+
+        .task__author{
+            max-width: 80%;
+            margin-top: 10px;
+            color: darkred;
+        }
+    </style>
+
+    <style>
+        .dropbtn {
+            background-color:  #1581e6;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            width: 200px;
+        }
+
+        .dropbtn:hover, .dropbtn:focus {
+            background-color:  #1065b5;
+        }
+
+        #myDropdown{
+            margin-top: 50px;
+        }
+
+        #myInput {
+            border-box: box-sizing;
+            background-image: url('searchicon.png');
+            background-position: 14px 12px;
+            background-repeat: no-repeat;
+            font-size: 16px;
+            padding: 14px 20px 12px 45px;
+            border: none;
+            border-bottom: 1px solid  #ddd;
+        }
+
+        #myInput:focus {outline: 3px solid #ddd;}
+
+        .dropdown {
+            position: fixed;
+            right: 42px;
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f6f6f6;
+            min-width: 230px;
+            border: 1px solid #ddd;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color:  #f1f1f1
+        }
+
+        .show {display: block;}
+
+    </style>
+</head>
+<body>
+    <div id="menu">
+        <div class="menu__item">
+            <div class="circle_border">
+                <i class="fa-solid fa-house"></i>
+            </div>
+        </div>
+        <div class="menu__item">
+            <div class="circle_border">
+                <i class="fa-solid fa-file-lines"></i>
+            </div>
+        </div>
+        <div class="menu__item">
+            <div class="circle_border">
+                LIA
+            </div>
+        </div>
+        <div class="menu__item">
+            <div class="circle_border">
+                <i class="fa-solid fa-info"></i>
+            </div>
+        </div>
+        <div class="menu__item">
+            <div class="circle_border">
+                <i class="fa-solid fa-gamepad"></i>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="header">
+            <div class="header__main">
+                <h1>Task list</h1>
+            </div>
+            <div class="header__corner">
+                <div class="corner__content">
+                    <a style="display: none" href="#" class="top_menu_item"><i class="fas fa-moon"></i></a>
+                    <a href="#" class="top_menu_item"><i class="fas fa-bookmark"></i></a>
+                    <a href="#" class="top_menu_item"><i class="fas fa-bell"></i></a>
+                    <a onclick="showProfileMenu()" class="top_menu_item"><i class="fa-solid fa-user"></i></a>
+                </div>
+            </div>
+        </div>
+        <div id="profile_menu">
+            <a href="#" class="profile_menu__item"><div>View profile</div></a>
+            <a href="#" class="profile_menu__item"><div>Profile settings</div></a>
+        </div>
+
+        <div id="content">
+            <div class = "dropdown" >
+                <button onclick = "myFunction()" class = "dropbtn"> Dropdown </button>
+                <div id = "myDropdown" class = "dropdown-content">
+                    <input type = "text" placeholder = "Search.." id = "myInput" onkeyup = "filterFunction()" >
+                    <a href="/katas_list/1" > 1 </a>
+                    <a href="/katas_list/2" > 2 </a>
+                    <a href="/katas_list/3" > 3 </a>
+                    <a href="/katas_list/4" > 4 </a>
+                    <a href="/katas_list/5" > 5 </a>
+                    <a href="/katas_list/6" > 6 </a>
+                    <a href="/katas_list/7" > 7 </a>
+                    <a href="/katas_list/8" > 8 </a>
+                    <a href="/katas_list/9" > 9 </a>
+                    <a href="/katas_list/10" > 10 </a>
+                </div>
+            </div>
+            {% for kata in list_of_kata %}
+            {% if kata['diff']|round|int == difficult| int or difficult == 'all' %}
+                <div id="content_">
+                    <div class="task">
+                        <div class="task__header"><a href="/kata/{{ kata['ID'] }}">{{ kata["title"] }}</a></div>
+                        {% if kata['diff'] == -1 %}
+                            <div class="task__content"><b>Not rated</b></div>
+                        {% else %}
+                            <div class="task__content"><b>Difficulty:</b> {{ kata['diff'] }} / 10</div>
+                        {% endif %}
+                        <div class="task__author"><b>Author</b>: {{ kata['creator'] }}</div>
+                        <div class="task__content"><b>Success</b>: {{ kata['total_success'] }} of {{ kata['total'] }} ({{ kata['success_percentage'] }} %)</div>
+                    </div>
+                </div>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+
+</body>
+
+<script>
+    function showProfileMenu(){
+        let profile_block = $("#profile_menu");
+        if(profile_block.css("display") === "block"){
+            profile_block.animate({"opacity": "0"}, () => {
+                profile_block.hide();
+            });
+        } else {
+            profile_block.css("opacity", "0");
+            profile_block.show();
+            profile_block.animate({"opacity": "1"});
+        }
+    }
+
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    function filterFunction() {
+        let input, filter, ul, li, a, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        let div = document.getElementById("myDropdown");
+        a = div.getElementsByTagName("a");
+        for (i = 0; i < a.length; i++) {
+            if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                a[i].style.display = "";
+            } else {
+                a[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+</html>

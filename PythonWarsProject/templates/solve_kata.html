@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/8ab2e3adb7.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <link href="{{ url_for('static', filename='css/task.css') }}" type="text/css" rel="stylesheet">
+
+    <script src="{{ url_for('static', filename='js/codemirror.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/editor.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/codemirror.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/editor_theme.css') }}">
+    <script src="{{ url_for('static', filename='js/python.js') }}"></script>
+    <script src="//malsup.github.io/min/jquery.form.min.js"></script>
+
+</head>
+    <div id="menu">
+        <div class="menu__item">
+            <div class="circle_border">
+                <i class="fa-solid fa-house"></i>
+            </div>
+        </div>
+        <div class="menu__item">
+            <div class="circle_border">
+                <i class="fa-solid fa-file-lines"></i>
+            </div>
+        </div>
+        <div class="menu__item">
+            <div class="circle_border">
+                LIA
+            </div>
+        </div>
+        <div class="menu__item">
+            <div class="circle_border">
+                <i class="fa-solid fa-info"></i>
+            </div>
+        </div>
+        <div class="menu__item">
+            <div class="circle_border">
+                <i class="fa-solid fa-gamepad"></i>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="header">
+            <div class="header__main">
+                <h1>{{ page.title }}</h1>
+            </div>
+            <div class="header__corner">
+                <div class="corner__content">
+                    <a style="display: none" href="#" class="top_menu_item"><i class="fas fa-moon"></i></a>
+                    <a href="#" class="top_menu_item"><i class="fas fa-bookmark"></i></a>
+                    <a href="#" class="top_menu_item"><i class="fas fa-bell"></i></a>
+                    <a onclick="showProfileMenu()" class="top_menu_item"><i class="fa-solid fa-user"></i></a>
+                </div>
+            </div>
+        </div>
+        <div id="profile_menu">
+            <a href="#" class="profile_menu__item"><div>View profile</div></a>
+            <a href="#" class="profile_menu__item"><div>Profile settings</div></a>
+        </div>
+
+        <div id="content">
+            <div class="task_container">
+                <div class="task_info">
+                    <div class="task_info__main">
+                        <h1>
+                            {{ kata.title }}.
+
+                            {% if kata.difficult > 0 %}
+
+                                {{ kata.difficult }}
+
+                            {% else %}
+
+                                Undefined yet
+
+                            {% endif %}
+                        </h1>
+                        <div class="task_author">
+                            <span><i class="fa-solid fa-user"></i> {{ kata.author }}</span> |
+                            {{ kata.success }} of {{ kata.total }}
+                        </div>
+                    </div>
+                    <div class="task_info__desc">
+                        <div class="task_info__buttons">
+                            <button onclick="switchTab(this);" tab_id="tab_task" class="task_info__button active">Task</button>
+                            <button onclick="switchTab(this);" tab_id="tab_output" class="task_info__button">Output</button>
+                        </div>
+                        <div class="task_info__tab show" id="tab_task">
+                            <h2>Task description</h2>
+                            <p>{{ kata.description }}</p>
+                        </div>
+                        <div class="task_info__tab" id="tab_output">
+                            {{ error }}
+                        </div>
+                    </div>
+                </div>
+                <form method="post">
+                    <div class="task_editor">
+                        <div class="task_editor__code">
+                            <label for="editor" class="task_editor__label">Code editor</label>
+                            {{ form.solution(id='editor') }}
+                        </div>
+                        <div class="task_editor__tests">
+                            <label for="test_out" class="task_editor__label">Tests</label>
+                            <textarea id='test_out' readonly>{{ kata.tests }}</textarea>
+                        </div>
+                        <div class="task_editor__submit">
+                            <button onclick="submit()">Solve</button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    function showProfileMenu(){
+        let profile_block = $("#profile_menu");
+        if(profile_block.css("display") === "block"){
+            profile_block.animate({"opacity": "0"}, () => {
+                profile_block.hide();
+            });
+        } else {
+            profile_block.css("opacity", "0");
+            profile_block.show();
+            profile_block.animate({"opacity": "1"});
+        }
+    }
+    function switchTab(event){
+        $(".task_info__tab").removeClass("show");
+        $("#" + event.attributes['tab_id'].value).addClass("show");
+        $(".task_info__button").removeClass("active");
+        $(event).addClass("active");
+    }
+    let editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+        extraKeys: {"Ctrl-Space": "autocomplete"},
+        lineNumbers: true,
+        styleActiveLine: true,
+        matchBrackets: true,
+        theme: "eclipse"
+    });
+    let test_out = CodeMirror.fromTextArea(document.getElementById("test_out"), {
+        extraKeys: {"Ctrl-Space": "autocomplete"},
+        lineNumbers: true,
+        styleActiveLine: true,
+        matchBrackets: true,
+        theme: "eclipse",
+        readOnly: true
+    });
+    editor.setSize("100%", "100%");
+    test_out.setSize("100%", "100%");
+
+    function submit(){
+        document.getElementById("editor").value = editor.getValue();
+        document.getElementById("test_out").value = test_out.getValue();
+        if(document.forms[0].checkValidity())
+            document.forms[0].submit();
+    }
+</script>
+
+</html>
